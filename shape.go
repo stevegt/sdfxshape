@@ -6,7 +6,7 @@ import (
 )
 
 type Shape struct {
-	s sdf.SDF3
+	S sdf.SDF3
 }
 
 func (in Shape) Translate(x, y, z float64) (out Shape) {
