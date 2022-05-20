@@ -12,7 +12,7 @@ type Shape struct {
 func (in Shape) Translate(x, y, z float64) (out Shape) {
 	out = Shape{}
 	t := sdf.Translate3d(sdf.V3{X: x, Y: y, Z: z})
-	out.s = sdf.Transform3D(in.s, t)
+	out.S = sdf.Transform3D(in.S, t)
 	return
 }
 
@@ -21,15 +21,15 @@ func (in Shape) Rotate(x, y, z float64) (out Shape) {
 	xr := sdf.RotateX(sdf.DtoR(x))
 	yr := sdf.RotateY(sdf.DtoR(y))
 	zr := sdf.RotateZ(sdf.DtoR(z))
-	out.s = sdf.Transform3D(in.s, xr)
-	out.s = sdf.Transform3D(out.s, yr)
-	out.s = sdf.Transform3D(out.s, zr)
+	out.S = sdf.Transform3D(in.S, xr)
+	out.S = sdf.Transform3D(out.S, yr)
+	out.S = sdf.Transform3D(out.S, zr)
 	return
 }
 
 func (pos Shape) Sub(neg Shape) (out Shape) {
 	out = Shape{}
-	out.s = sdf.Difference3D(pos.s, neg.s)
+	out.S = sdf.Difference3D(pos.S, neg.S)
 	return
 }
 
@@ -37,16 +37,16 @@ func Union(ins ...Shape) (out Shape) {
 	out = Shape{}
 	var ss []sdf.SDF3
 	for _, in := range ins {
-		ss = append(ss, in.s)
+		ss = append(ss, in.S)
 	}
-	out.s = sdf.Union3D(ss...)
+	out.S = sdf.Union3D(ss...)
 	return
 }
 
 func Box(x, y, z, round float64) (out Shape) {
 	out = Shape{}
 	var err error
-	out.s, err = sdf.Box3D(sdf.V3{X: x, Y: y, Z: z}, round)
+	out.S, err = sdf.Box3D(sdf.V3{X: x, Y: y, Z: z}, round)
 	Ck(err)
 	return
 }
@@ -54,7 +54,7 @@ func Box(x, y, z, round float64) (out Shape) {
 func Cylinder(height, radius, round float64) (out Shape) {
 	out = Shape{}
 	var err error
-	out.s, err = sdf.Cylinder3D(height, radius, round)
+	out.S, err = sdf.Cylinder3D(height, radius, round)
 	Ck(err)
 	return
 }
@@ -62,7 +62,7 @@ func Cylinder(height, radius, round float64) (out Shape) {
 func Cone(height, r0, r1, round float64) (out Shape) {
 	out = Shape{}
 	var err error
-	out.s, err = sdf.Cone3D(height, r0, r1, round)
+	out.S, err = sdf.Cone3D(height, r0, r1, round)
 	Ck(err)
 	return
 }
