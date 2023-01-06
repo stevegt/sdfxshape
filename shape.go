@@ -2,6 +2,7 @@ package sdfxshape
 
 import (
 	"github.com/deadsy/sdfx/sdf"
+	v3 "github.com/deadsy/sdfx/vec/v3"
 	. "github.com/stevegt/goadapt"
 )
 
@@ -11,7 +12,7 @@ type Shape struct {
 
 func (in Shape) Translate(x, y, z float64) (out Shape) {
 	out = Shape{}
-	t := sdf.Translate3d(sdf.V3{X: x, Y: y, Z: z})
+	t := sdf.Translate3d(v3.Vec{X: x, Y: y, Z: z})
 	out.S = sdf.Transform3D(in.S, t)
 	return
 }
@@ -46,7 +47,7 @@ func Union(ins ...Shape) (out Shape) {
 func Box(x, y, z, round float64) (out Shape) {
 	out = Shape{}
 	var err error
-	out.S, err = sdf.Box3D(sdf.V3{X: x, Y: y, Z: z}, round)
+	out.S, err = sdf.Box3D(v3.Vec{X: x, Y: y, Z: z}, round)
 	Ck(err)
 	return
 }

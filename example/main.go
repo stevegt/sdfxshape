@@ -19,5 +19,5 @@ func main() {
 	all := pos.Sub(neg)
 
 	Pl("rendering...")
-	render.RenderSTL(all.S, 300, "all.stl")
+	render.ToSTL(all.S, "all.stl", render.NewMarchingCubesOctree(300))
 }
